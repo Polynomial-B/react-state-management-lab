@@ -30,8 +30,16 @@ button:hover {
   background-color: rgba(137, 43, 226, 0.334);
 }
 
+
 .fighterName {
   font-size: 1.2em;
   font-weight: 700;
   color: darkgrey
+}
+
+.myTeamEmpty {
+  display: flex;
+  justify-content: center;
+  min-height: 300px;
+
 }

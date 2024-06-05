@@ -85,19 +85,22 @@ const [fighters, setFighters] = React.useState(initialFighters)
 
 
 function handleAddFighter(fighter) {
+    if(money >= fighter.price) {
     const newTeam = structuredClone(team)
     newTeam.push(fighter)
     setTeam(newTeam)
-
+    setMoney(money - fighter.price)
+    } else {
+        console.log("not enough money");
+    }
 }
 
-
-function handleRemoveFighter(fighter) {
+function handleRemoveFighter(fighter, fighterIndex) {
     const removeTeam = structuredClone(team)
-    removeTeam.splice(fighter, 1)
-    setTeam(team)
+    removeTeam.splice(fighterIndex, 1)
+    setTeam(removeTeam)
+    setMoney(money + fighter.price)
 }
-
 
 
 
@@ -105,6 +108,7 @@ return <>
 
 <h1>Zombie</h1>
 <div className="myTeam">
+{team.length === 0 ? <h2 className="myTeamEmpty">Start choosing your team!</h2> : ""}
 <ul className="squadContainer">
     {team.map((fighter, index) => {
         return <li
@@ -115,13 +119,12 @@ return <>
             <div> £{fighter.price} </div>
             <div>Strength: {fighter.strength} </div>
             <div>Agility: {fighter.agility} </div>
-            <button className="removeFromSquad" onClick={()=> handleRemoveFighter(fighter)}>Remove</button>
+            <button className="removeFromSquad" onClick={()=> handleRemoveFighter(fighter, index)}>Remove</button>
         </li>
     })}
 
 </ul>
 </div>
-    {team.length === 0 ? <h2>Start choosing your team!</h2> : ""}
 <h2>Funds available: £{money}</h2>
 <ul className="squadContainer">
     {fighters.map((fighter, index) => {
