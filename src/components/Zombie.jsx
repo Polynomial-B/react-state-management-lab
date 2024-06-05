@@ -9,79 +9,97 @@ const initialFighters =
       price: 12,
       strength: 6,
       agility: 4,
-      img: 'https://via.placeholder.com/150/92c952',
+      img: '../src/assets/medusa.png',
     },
     {
       name: 'Scavenger',
       price: 10,
       strength: 5,
       agility: 5,
-      img: 'https://via.placeholder.com/150/771796',
+      img: '../src/assets/genie.png',
     },
     {
       name: 'Shadow',
       price: 18,
       strength: 7,
       agility: 8,
-      img: 'https://via.placeholder.com/150/24f355',
+      img: '../src/assets/dark-elf.png',
     },
     {
       name: 'Tracker',
       price: 14,
       strength: 7,
       agility: 6,
-      img: 'https://via.placeholder.com/150/d32776',
+      img: '../src/assets/orc.png',
     },
     {
       name: 'Sharpshooter',
       price: 20,
       strength: 6,
       agility: 8,
-      img: 'https://via.placeholder.com/150/1ee8a4',
+      img: '../src/assets/phoenix.png',
     },
     {
       name: 'Medic',
       price: 15,
       strength: 5,
       agility: 7,
-      img: 'https://via.placeholder.com/150/66b7d2',
+      img: '../src/assets/elf.png',
     },
     {
       name: 'Engineer',
       price: 16,
       strength: 6,
       agility: 5,
-      img: 'https://via.placeholder.com/150/56acb2',
+      img: '../src/assets/dark-elf.png',
     },
     {
       name: 'Brawler',
       price: 11,
       strength: 8,
       agility: 3,
-      img: 'https://via.placeholder.com/150/8985dc',
+      img: '../src/assets/witch.png',
     },
     {
       name: 'Infiltrator',
       price: 17,
       strength: 5,
       agility: 9,
-      img: 'https://via.placeholder.com/150/392537',
+      img: '../src/assets/unicorn.png',
     },
     {
       name: 'Leader',
       price: 22,
       strength: 7,
       agility: 6,
-      img: 'https://via.placeholder.com/150/602b9e',
+      img: '../src/assets/succubus.png',
     },
   ];
-  
+
+
+
+const initialValue = 0
+const initialWealth = 100
+
 function Zombie() {
 
 
 const [team, setTeam] = React.useState([])
-const [money, setMoney] = React.useState(100)
+const [money, setMoney] = React.useState(initialWealth)
 const [fighters, setFighters] = React.useState(initialFighters)
+const [strength, setStrength] = React.useState(initialValue)
+const [agility, setAgility] = React.useState(initialValue)
+
+
+
+// let isMoney = true
+// function insufficientFundsMessage() {
+//     if (isMoney === false) {
+//         return isMoney = true
+//     } else {
+//         return isMoney = false
+//     }
+// }
 
 
 function handleAddFighter(fighter) {
@@ -90,8 +108,11 @@ function handleAddFighter(fighter) {
     newTeam.push(fighter)
     setTeam(newTeam)
     setMoney(money - fighter.price)
+    setAgility(agility + fighter.agility)
+    setStrength(strength + fighter.strength)
     } else {
-        console.log("not enough money");
+        // return insufficientFundsMessage()
+        console.log("You have insufficient funds")
     }
 }
 
@@ -100,13 +121,23 @@ function handleRemoveFighter(fighter, fighterIndex) {
     removeTeam.splice(fighterIndex, 1)
     setTeam(removeTeam)
     setMoney(money + fighter.price)
+    setAgility(agility - fighter.agility)
+    setStrength(strength - fighter.strength)
+    // return insufficientFundsMessage()
+}
+
+function handleRemoveAll() {
+    setAgility(initialValue)
+    setTeam([])
+    setMoney(initialWealth)
+    setStrength(initialValue)
 }
 
 
-
 return <>
+<button onClick={handleRemoveAll}>Remove All</button>
+{/* {!isMoney ? <h2>You don't have enough money!</h2> : ""} */}
 
-<h1>Zombie</h1>
 <div className="myTeam">
 {team.length === 0 ? <h2 className="myTeamEmpty">Start choosing your team!</h2> : ""}
 <ul className="squadContainer">
@@ -125,6 +156,7 @@ return <>
 
 </ul>
 </div>
+<h2>Strength: {strength}</h2> <h2>Agility: {agility}</h2>
 <h2>Funds available: £{money}</h2>
 <ul className="squadContainer">
     {fighters.map((fighter, index) => {
@@ -143,5 +175,6 @@ return <>
 </ul>
 </>
 }
+
 
 export default Zombie
