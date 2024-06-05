@@ -1,10 +1,11 @@
 import React from 'react'
 import './App.css'
+import Zombie from './components/Zombie.jsx'
 
 const App = () => {
 
   return (
-    <h1>Hello world!</h1>
+    <Zombie />
   );
 }
 

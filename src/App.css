@@ -7,3 +7,27 @@ li {
   list-style: none;
   margin: 10px;
 }
+
+h1, h2 {
+  display: flex;
+  justify-content: center;
+}
+.fighterCard {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid grey;
+  border-radius: 10px;
+  overflow: hidden;
+  align-items: center;
+}
+
+.addToSquad {
+  display: flex;
+  margin-top: 0.8em;
+}
+
+.fighterName {
+  font-size: 1.2em;
+  font-weight: 700;
+  color: darkgrey
+}
