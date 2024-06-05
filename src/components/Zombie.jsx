@@ -84,35 +84,61 @@ const [money, setMoney] = React.useState(100)
 const [fighters, setFighters] = React.useState(initialFighters)
 
 
-function handleAddFighter() {
+function handleAddFighter(fighter) {
+    const newTeam = structuredClone(team)
+    newTeam.push(fighter)
+    setTeam(newTeam)
 
 }
- 
+
+
+function handleRemoveFighter(fighter) {
+    const removeTeam = structuredClone(team)
+    removeTeam.splice(fighter, 1)
+    setTeam(team)
+}
+
 
 
 
 return <>
 
-<h1>Zombie Nation</h1>
+<h1>Zombie</h1>
+<div className="myTeam">
+<ul className="squadContainer">
+    {team.map((fighter, index) => {
+        return <li
+            className="fighterCard"
+            key={index}>
+            <img src={fighter.img}/>
+            <div className="fighterName">{fighter.name} </div>
+            <div> £{fighter.price} </div>
+            <div>Strength: {fighter.strength} </div>
+            <div>Agility: {fighter.agility} </div>
+            <button className="removeFromSquad" onClick={()=> handleRemoveFighter(fighter)}>Remove</button>
+        </li>
+    })}
+
+</ul>
+</div>
+    {team.length === 0 ? <h2>Start choosing your team!</h2> : ""}
 <h2>Funds available: £{money}</h2>
 <ul className="squadContainer">
     {fighters.map((fighter, index) => {
         return <li
             className="fighterCard"
             key={index}>
-            <img src={fighter.img}></img>
+            <img src={fighter.img}/>
             <div className="fighterName">{fighter.name} </div>
             <div> £{fighter.price} </div>
             <div>Strength: {fighter.strength} </div>
             <div>Agility: {fighter.agility} </div>
-            <button className="addToSquad" onClick={handleAddFighter}>Add to squad</button>
+            <button className="addToSquad" onClick={()=> handleAddFighter(fighter)}>Add</button>
         </li>
     })}
 
 </ul>
 </>
-
-
 }
 
 export default Zombie
